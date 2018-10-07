@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import "./App.css";
+import Modules from "./App.module.css";
 import Person from "./Person/Person";
 // import Radium from "radium";
+import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 
 class App extends Component {
   state = {
@@ -57,20 +58,24 @@ class App extends Component {
   };
 
   render() {
+    //css modules styles
+
+    let btnClass = "";
+
     //scoped styles
 
-    const style = {
-      backgroundColor: "green",
-      color: "white",
-      font: "inherit",
-      border: "1px solid blue",
-      padding: "8px",
-      cursor: "pointer"
-      // ":hover": {
-      //   backgroundColor: "lightgreen",
-      //   color: "black"
-      // }
-    };
+    // const style = {
+    //   backgroundColor: "green",
+    //   color: "white",
+    //   font: "inherit",
+    //   border: "1px solid blue",
+    //   padding: "8px",
+    //   cursor: "pointer"
+    //   // ":hover": {
+    //   //   backgroundColor: "lightgreen",
+    //   //   color: "black"
+    //   // }
+    // };
 
     //toggle
 
@@ -81,6 +86,7 @@ class App extends Component {
         <div>
           {this.state.persons.map((person, index) => {
             return (
+              //<ErrorBoundary key={person.id}>
               <Person
                 click={this.deletePersonHandler.bind(this, index)}
                 name={person.name}
@@ -88,11 +94,13 @@ class App extends Component {
                 key={person.id}
                 changed={event => this.nameChangedHandler(event, person.id)}
               />
+              //</ErrorBoundary>
             );
           })}
         </div>
       );
-      style.backgroundColor = "red";
+      btnClass = Modules.Red;
+      // style.backgroundColor = "red";
       // style[":hover"] = {
       //   backgroundColor: "salmon",
       //   color: "black"
@@ -102,17 +110,20 @@ class App extends Component {
     // let classes = ["red", "bold"].join(" ");
     let classes = [];
     if (this.state.persons.length <= 2) {
-      classes.push("red");
+      classes.push(Modules.Red);
     }
     if (this.state.persons.length <= 1) {
-      classes.push("bold");
+      classes.push(Modules.Bold);
     }
 
     return (
-      <div className="App">
+      <div className={Modules.App}>
         <h1>Hello There</h1>
         <p className={classes.join(" ")}>how many</p>
-        <button style={style} onClick={this.togglePersonsHandler}>
+        {/* <button style={style} onClick={this.togglePersonsHandler}>
+          Show Names
+        </button> */}
+        <button className={btnClass} onClick={this.togglePersonsHandler}>
           Show Names
         </button>
         {persons}
