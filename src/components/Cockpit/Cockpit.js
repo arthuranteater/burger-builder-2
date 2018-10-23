@@ -17,7 +17,7 @@ const Cockpit = props => {
   }
   return (
     <div className={Modules.Cockpit}>
-      <h1>Hello There</h1>
+      <h1>{props.title}</h1>
       <p className={classes.join(" ")}>how many</p>
       <button className={btnClass} onClick={props.clicked}>
         Show Names
